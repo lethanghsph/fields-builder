@@ -32,7 +32,6 @@ class TL_Field_Text extends TL_Field_Set_Output_Abstract {
 	 * Set output of field.
 	 */
 	public function set_output() {
-		$field = $this->field;
-		return '<input type="text" name="' . $field->set_name() . '" value="' . $field->set_value() . '" ' . $field->generate_attributes() . '>';
+		return $this->field->generate_input();
 	}
 }

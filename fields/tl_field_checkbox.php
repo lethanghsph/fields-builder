@@ -1,6 +1,6 @@
 <?php
 /**
- * This class to build element text field
+ * This class to build element checkbox field
  *
  * @package tl-framework
  */
@@ -11,7 +11,7 @@
  * @since 1.0.0
  * @version 1.0.0
  */
-class TL_Field_Radio extends TL_Field_Set_Output_Abstract {
+class TL_Field_Checkbox extends TL_Field_Set_Output_Abstract {
 	/**
 	 * Instance of object to build field.
 	 *

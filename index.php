@@ -8,7 +8,7 @@ foreach ( glob( 'fields/*.php' ) as $_field ) {
 
 $agrs = array(
 	'id' => 'id_test',
-	'type' => 'radio',
+	'type' => 'password',
 	'title' => 'title',
 	'attributes' => array(
 		'id' => 'thangle',
@@ -19,10 +19,12 @@ $agrs = array(
 		'value2' => 'Value 2',
 		'value3' => 'Value 3',
 		'value4' => 'Value 4',
+		'value5' => 'Value 5',
+		'value6' => 'Value 6',
 	),
 );
 $field = new TL_Field( $agrs, 'thangle', $agrs['id'] );
-$field_text = new TL_Field_Radio( $field );
+$field_text = new TL_Field_Password( $field );
 echo $field_text->set_output();
 
 
