@@ -33,6 +33,6 @@ class TL_Field_Password extends TL_Field_Set_Output_Abstract {
 	 */
 	public function set_output() {
 		$field = $this->field;
-		return '<input type="password" name="' . $field->set_name() . '" value="' . $field->set_value() . '" ' . $field->set_attributes() . '>';
+		return '<input type="password" name="' . $field->set_name() . '" value="' . $field->set_value() . '" ' . $field->generate_attributes() . '>';
 	}
 }

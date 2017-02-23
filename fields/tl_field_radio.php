@@ -33,7 +33,20 @@ class TL_Field_Radio extends TL_Field_Set_Output_Abstract {
 	 */
 	public function set_output() {
 		$field = $this->field;
-		return '<input type="radio" name="' . $field->set_name() . '" value="' . $field->set_value() . '" ' . $field->set_attributes() . '>';
+		$options = $field->set_options();
+		if ( empty( $options ) ) { return; };
+
+		$output = '<ul>';
+		foreach ( $options as $key => $value ) {
+			// $output .= '<li><input type="radio" name="' . $field->set_name() . '" value="' . $field->set_value() . '" ' . $field->generate_attributes() . '></li>';
+			$output .= '<li>';
+			$output .= $field->generate_input( array(
+					'after' => $value,
+					'value' => $key,
+			) );
+			$output .= '</li>';
+		}
+		$output .= '</ul>';
+		return $output;
 	}
 }
-<input type="radio" name="gender" value="male" checked> Male<br>

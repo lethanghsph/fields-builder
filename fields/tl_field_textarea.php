@@ -37,6 +37,6 @@ class TL_Field_Textarea extends TL_Field_Set_Output_Abstract {
 	 */
 	public function set_output() {
 		$field = $this->field;
-		return '<textarea name="' . $field->set_name() . '" ' . $field->set_attributes() . '>' . $field->set_value() . '</textarea>';
+		return '<textarea name="' . $field->set_name() . '" ' . $field->generate_attributes() . '>' . $field->set_value() . '</textarea>';
 	}
 }
