@@ -72,8 +72,8 @@ class TL_Field {
 		$this->config = $config;
 		$this->value = $value;
 		$this->unique = $unique;
-		$this->attributes = ( $config['attributes'] ) ? $config['attributes'] : array();
-		$this->options = ( $config['options'] ) ? $config['options'] : array();
+		$this->attributes = ( isset( $config['attributes'] ) && ! empty( $config['attributes'] ) ) ? $config['attributes'] : array();
+		$this->options = ( isset( $config['options'] ) ) ? $config['options'] : '';
 	}
 
 	/**
@@ -114,7 +114,7 @@ class TL_Field {
 	/**
 	 * Set attributes for field.
 	 */
-	public function set_attributes() {
+	public function generate_attributes() {
 		// Set dependency.
 		$sub_elemenet   = ( isset( $this->config['sub'] ) ) ? ' data-sub-depend-id': 'data-depend-id';
 		if ( ! isset( $this->attributes[ $sub_elemenet ] ) || empty( $this->attributes[ $sub_elemenet ] ) ) {
@@ -130,6 +130,13 @@ class TL_Field {
 			}
 		}
 		return $attribute_output;
+	}
+
+	/**
+	 * Set option for radio | select field.
+	 */
+	public function set_options() {
+		return $this->options;
 	}
 
 	/**
@@ -152,6 +159,42 @@ class TL_Field {
 			print $result; // WPCS: XSS OK.
 		}
 		return $result;
+	}
+
+	/**
+	 * Generate input field type.
+	 *
+	 * @param array $agrs [custom attributes].
+	 */
+	public function generate_input( $agrs = array() ) {
+		$default = array(
+			'name'       => $this->set_name(),
+			'value'      => $this->set_value(),
+			'type'       => $this->set_type(),
+			'attributes' => $this->generate_attributes(),
+			'before'     => '',
+			'after'      => '',
+		);
+		// TODO: Array helps.
+		$config = array_merge( $default, $agrs );
+		$output = sprintf(
+			'%1$s <input type="%2$s" name="%3$s" value="%4$s" %5$s> %6$s',
+			$config['before'],
+			$config['type'],
+			$config['name'],
+			$config['value'],
+			$config['attributes'],
+			$config['after']
+		);
+		return $output;
+	}
+
+	/**
+	 * Generate option for select field type.
+	 *
+	 * @param array $agrs [custom attributes].
+	 */
+	public function generate_select( $agrs = array() ) {
 	}
 
 }
