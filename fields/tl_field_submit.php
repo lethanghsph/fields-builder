@@ -34,10 +34,15 @@ class TL_Field_Submit extends TL_Field_Set_Output_Abstract {
 	public function set_output() {
 		$field = $this->field;
 		$ex_atts = array(
-			'class' => 'btn btn-primary',
+			'class' => 'btn btn-danger',
 		);
-		return $this->field->generate_input( array(
+
+		$output = '';
+		$output .= $field->generate_before();
+		$output .= $this->field->generate_input( array(
 			'atts' => $field->generate_attributes( $ex_atts ),
 		) );
+		$output .= $field->generate_after();
+		return $output;
 	}
 }
