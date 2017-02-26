@@ -33,6 +33,10 @@ class TL_Field_Select extends TL_Field_Set_Output_Abstract {
 	 */
 	public function set_output() {
 		$field = $this->field;
-		return $field->generate_select();
+		$output = '';
+		$output .= $field->generate_before();
+		$output .= $field->generate_select();
+		$output .= $field->generate_after();
+		return $output;
 	}
 }
