@@ -149,9 +149,9 @@ class TL_Field {
 	 */
 	public function set_checked( $option_value = '', $field_value = '', $type = 'checked', $echo = false ) {
 		if ( is_array( $field_value ) && in_array( $option_value, $field_value ) ) {
-			$result = $type;
+			$result = ' ' . $type;
 		} else if ( $field_value == $option_value ) {
-			$result = $type;
+			$result = ' ' . $type;
 		} else {
 			$result = '';
 		}
@@ -179,13 +179,13 @@ class TL_Field {
 		// TODO: Array helps.
 		$config = array_merge( $default, $agrs );
 		$output = sprintf(
-			'%1$s <input type="%2$s" name="%3$s" value="%4$s" %5$s %6$s> %7$s',
+			'%1$s <input type="%2$s" name="%3$s" value="%4$s"%5$s %6$s> %7$s',
 			$config['before'],
 			$config['type'],
 			$config['name'],
 			$config['value'],
-			$config['attributes'],
 			$config['checked'],
+			$config['attributes'],
 			$config['after']
 		);
 		return $output;
