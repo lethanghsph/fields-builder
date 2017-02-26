@@ -73,7 +73,7 @@ class TL_Field {
 		$this->value = $value;
 		$this->unique = $unique;
 		$this->attributes = ( isset( $config['atts'] ) && ! empty( $config['atts'] ) ) ? $config['atts'] : array();
-		$this->options = ( isset( $config['options'] ) ) ? $config['options'] : '';
+		$this->options = ( isset( $config['options'] ) && ! empty( $config['options'] ) ) ? $config['options'] : '';
 	}
 
 	/**
@@ -98,6 +98,35 @@ class TL_Field {
 	public function set_type() {
 		$this->type = ( $this->config['type'] ) ? $this->config['type'] : '';
 		return $this->type;
+	}
+
+	/**
+	 * Set option for radio | select field.
+	 */
+	public function set_options() {
+		return $this->options;
+	}
+
+	/**
+	 * Check option is selected.
+	 *
+	 * @param  string  $option_value  [Value of option in field].
+	 * @param  mixed   $field_value   [Value of field].
+	 * @param  string  $type          [String echo when option to be selected].
+	 * @param  boolean $echo          [Echo or not].
+	 */
+	public function set_checked( $option_value = '', $field_value = '', $type = 'checked', $echo = false ) {
+		if ( is_array( $field_value ) && in_array( $option_value, $field_value ) ) {
+			$result = ' ' . $type;
+		} else if ( $field_value == $option_value ) {
+			$result = ' ' . $type;
+		} else {
+			$result = '';
+		}
+		if ( $echo ) {
+			print $result; // WPCS: XSS OK.
+		}
+		return $result;
 	}
 
 	/**
@@ -134,32 +163,17 @@ class TL_Field {
 	}
 
 	/**
-	 * Set option for radio | select field.
+	 * Generate before field.
 	 */
-	public function set_options() {
-		return $this->options;
+	public function generate_before() {
+		return ( isset( $this->config['before_field'] ) ) ? $this->config['before_field'] : '';
 	}
 
 	/**
-	 * Check option is selected.
-	 *
-	 * @param  string  $option_value  [Value of option in field].
-	 * @param  mixed   $field_value   [Value of field].
-	 * @param  string  $type          [String echo when option to be selected].
-	 * @param  boolean $echo          [Echo or not].
+	 * Generate after field.
 	 */
-	public function set_checked( $option_value = '', $field_value = '', $type = 'checked', $echo = false ) {
-		if ( is_array( $field_value ) && in_array( $option_value, $field_value ) ) {
-			$result = ' ' . $type;
-		} else if ( $field_value == $option_value ) {
-			$result = ' ' . $type;
-		} else {
-			$result = '';
-		}
-		if ( $echo ) {
-			print $result; // WPCS: XSS OK.
-		}
-		return $result;
+	public function generate_after() {
+		return ( isset( $this->config['after_field'] ) ) ? $this->config['after_field'] : '';
 	}
 
 	/**
@@ -169,25 +183,21 @@ class TL_Field {
 	 */
 	public function generate_input( $agrs = array() ) {
 		$default = array(
-			'name'       => $this->set_name(),
-			'value'      => $this->set_value(),
-			'type'       => $this->set_type(),
-			'atts'       => $this->generate_attributes(),
-			'checked'    => '',
-			'before'     => '',
-			'after'      => '',
+			'name'         => $this->set_name(),
+			'value'        => $this->set_value(),
+			'type'         => $this->set_type(),
+			'atts'         => $this->generate_attributes(),
+			'checked'      => ''
 		);
 		// TODO: Array helps.
 		$config = array_merge( $default, $agrs );
 		$output = sprintf(
-			'%1$s <input type="%2$s" name="%3$s" value="%4$s"%5$s %6$s> %7$s',
-			$config['before'],
+			'<input type="%1$s" name="%2$s" value="%3$s"%4$s %5$s>',
 			$config['type'],
 			$config['name'],
 			$config['value'],
 			$config['checked'],
-			$config['atts'],
-			$config['after']
+			$config['atts']
 		);
 		return $output;
 	}
@@ -198,6 +208,35 @@ class TL_Field {
 	 * @param array $agrs [custom attributes].
 	 */
 	public function generate_select( $agrs = array() ) {
+
+		if ( empty( $this->options ) ) { return; };
+
+		$default = array(
+			'name'         => $this->set_name(),
+			'value'        => $this->set_value(),
+			'type'         => $this->set_type(),
+			'atts'         => $this->generate_attributes(),
+		);
+		// TODO: Array helps.
+		$config = array_merge( $default, $agrs );
+		$option = '';
+		foreach ( $this->options as $key => $value ) {
+			$option .= sprintf(
+				'<option value="%1$s" %2$s>%3$s</option>',
+				$key,
+				$this->set_checked( $key, $config['value'], 'selected' ),
+				$value
+			);
+		}
+		$output = '';
+		$output .= sprintf(
+			'<select name="%1$s"%2$s>%3$s</select>',
+			$config['name'],
+			$config['atts'],
+			$option
+		);
+		return $output;
+
 	}
 
 }
