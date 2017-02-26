@@ -79,13 +79,15 @@ $args  = array(
 		),
 	 array(
 			'id'      => 'switcher_1',
-			'type'    => 'reset',
+			'type'    => 'button',
 			'title'   => 'Switcher',
 			'label'   => 'You want to update for this framework ?',
 			'atts' => array(
 				'class' => 'thangle',
 			),
 			'value' => 'Button',
+			'before_field' => 'before',
+			'after_field' => 'after',
 		),
 		array(
 			'id'             => 'select_1',
