@@ -101,20 +101,21 @@ class TL_Field {
 	}
 
 	/**
-	 * Add attributes input.
+	 * Set attributes for field.
 	 *
 	 * @param array $ex_atts [extra attributes].
 	 */
-	public function add_extra_attributes( $ex_atts ) {
-		$ex_atts = ( is_array( $ex_atts ) ) ? $ex_atts : array();
-		// TODO: array helper.
-		$this->attributes = array_merge( $this->attributes, $ex_atts );
-	}
+	public function generate_attributes( $ex_atts = array() ) {
 
-	/**
-	 * Set attributes for field.
-	 */
-	public function generate_attributes() {
+		// Add extra attributes.
+		$ex_atts = ( is_array( $ex_atts ) ) ? $ex_atts : array();
+		// Set extra class.
+		if ( isset( $ex_atts['class'] ) && isset( $this->attributes['class'] ) ) {
+			$this->attributes['class'] .= ' ' . $ex_atts['class'];
+		}
+		// TODO: array helper.
+		$this->attributes = array_merge( $ex_atts, $this->attributes );
+
 		// Set dependency.
 		$sub_elemenet   = ( isset( $this->config['sub'] ) ) ? ' data-sub-depend-id': 'data-depend-id';
 		if ( ! isset( $this->attributes[ $sub_elemenet ] ) || empty( $this->attributes[ $sub_elemenet ] ) ) {
@@ -142,8 +143,8 @@ class TL_Field {
 	/**
 	 * Check option is selected.
 	 *
-	 * @param  mixed   $field_value   [Value of field].
 	 * @param  string  $option_value  [Value of option in field].
+	 * @param  mixed   $field_value   [Value of field].
 	 * @param  string  $type          [String echo when option to be selected].
 	 * @param  boolean $echo          [Echo or not].
 	 */

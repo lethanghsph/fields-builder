@@ -1,6 +1,6 @@
 <?php
 /**
- * This class to build element textarea field
+ * This class to build element submit field
  *
  * @package tl-framework
  */
@@ -11,7 +11,7 @@
  * @since 1.0.0
  * @version 1.0.0
  */
-class TL_Field_Textarea extends TL_Field_Set_Output_Abstract {
+class TL_Field_Submit extends TL_Field_Set_Output_Abstract {
 	/**
 	 * Instance of object to build field.
 	 *
@@ -26,7 +26,6 @@ class TL_Field_Textarea extends TL_Field_Set_Output_Abstract {
 	 */
 	public function __construct( TL_Field $tl_field ) {
 		$this->field = $tl_field;
-
 	}
 
 	/**
@@ -34,10 +33,11 @@ class TL_Field_Textarea extends TL_Field_Set_Output_Abstract {
 	 */
 	public function set_output() {
 		$field = $this->field;
-		$atts_extra = array(
-			'rows' => '10',
-			'cols' => '50',
+		$ex_atts = array(
+			'class' => 'btn btn-primary',
 		);
-		return '<textarea name="' . $field->set_name() . '" ' . $field->generate_attributes( $atts_extra ) . '>' . $field->set_value() . '</textarea>';
+		return $this->field->generate_input( array(
+			'attributes' => $field->generate_attributes( $ex_atts ),
+		) );
 	}
 }
