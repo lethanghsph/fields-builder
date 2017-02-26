@@ -42,6 +42,7 @@ class TL_Field_Radio extends TL_Field_Set_Output_Abstract {
 			$output .= $field->generate_input( array(
 				'after' => $value,
 				'value' => $key,
+				'checked' => $field->set_checked( $key, $field->set_value() ),
 			) );
 			$output .= '</li>';
 		}

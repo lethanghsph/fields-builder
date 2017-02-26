@@ -147,11 +147,11 @@ class TL_Field {
 	 * @param  string  $type          [String echo when option to be selected].
 	 * @param  boolean $echo          [Echo or not].
 	 */
-	public function set_checked( $field_value = '', $option_value = '', $type = 'checked', $echo = false ) {
+	public function set_checked( $option_value = '', $field_value = '', $type = 'checked', $echo = false ) {
 		if ( is_array( $field_value ) && in_array( $option_value, $field_value ) ) {
-			$result = ' ' . $type;
+			$result = $type;
 		} else if ( $field_value == $option_value ) {
-			$result = ' ' . $type;
+			$result = $type;
 		} else {
 			$result = '';
 		}
@@ -172,18 +172,20 @@ class TL_Field {
 			'value'      => $this->set_value(),
 			'type'       => $this->set_type(),
 			'attributes' => $this->generate_attributes(),
+			'checked'    => '',
 			'before'     => '',
 			'after'      => '',
 		);
 		// TODO: Array helps.
 		$config = array_merge( $default, $agrs );
 		$output = sprintf(
-			'%1$s <input type="%2$s" name="%3$s" value="%4$s" %5$s> %6$s',
+			'%1$s <input type="%2$s" name="%3$s" value="%4$s" %5$s %6$s> %7$s',
 			$config['before'],
 			$config['type'],
 			$config['name'],
 			$config['value'],
 			$config['attributes'],
+			$config['checked'],
 			$config['after']
 		);
 		return $output;
