@@ -1,31 +1,99 @@
 <?php
 // Silence is golden.
-include 'base/tl_field.php';
+?>
+<link rel="stylesheet" href="assets/bootstrap.min.css" />
+<?php
 include 'behaviors/tl_field_set_output_abstract.php';
+include 'base/tl_field.php';
+include 'base/tl_generate_field.php';
 foreach ( glob( 'fields/*.php' ) as $_field ) {
 	include $_field;
 }
 
-$agrs = array(
-	'id' => 'id_test',
-	'type' => 'password',
-	'title' => 'title',
-	'attributes' => array(
-		'id' => 'thangle',
-		'class' => 'thangle',
-	),
-	'options' => array(
-		'value1' => 'Value 1',
-		'value2' => 'Value 2',
-		'value3' => 'Value 3',
-		'value4' => 'Value 4',
-		'value5' => 'Value 5',
-		'value6' => 'Value 6',
-	),
-);
-$field = new TL_Field( $agrs, 'thangle', $agrs['id'] );
-$field_text = new TL_Field_Password( $field );
-echo $field_text->set_output();
+$args  = array(
 
+		// begin: a field
+		array(
+			'id'      => 'text_1',
+			'type'    => 'text',
+			'title'   => 'Text',
+		),
+		// end: a field
 
+		array(
+			'id'      => 'textarea_1',
+			'type'    => 'textarea',
+			'title'   => 'Textarea',
+			'help'    => 'This option field is useful. You will love it!',
+		),
+
+		array(
+			'id'      => 'switcher_1',
+			'type'    => 'password',
+			'title'   => 'Switcher',
+			'label'   => 'You want to update for this framework ?',
+		),
+
+		array(
+			'id'      => 'radio_1',
+			'type'    => 'radio',
+			'title'   => 'Radio',
+			'options' => array(
+				'yes'   => 'Yes, Please.',
+				'no'    => 'No, Thank you.',
+			),
+			'help'    => 'Are you sure for this choice?',
+		),
+
+		array(
+			'id'             => 'select_1',
+			'type'           => 'checkbox',
+			'title'          => 'Select',
+			'options'        => array(
+				'bmw'          => 'BMW',
+				'mercedes'     => 'Mercedes',
+				'volkswagen'   => 'Volkswagen',
+				'other'        => 'Other',
+			),
+			'default_option' => 'Select your favorite car',
+		),
+		array(
+			'id'      => 'switcher_1',
+			'type'    => 'submit',
+			'title'   => 'Switcher',
+			'label'   => 'You want to update for this framework ?',
+			'atts' => array(
+				'class' => 'thangle',
+			),
+			'value' => 'Submit',
+		),
+	 array(
+			'id'      => 'switcher_1',
+			'type'    => 'reset',
+			'title'   => 'Switcher',
+			'label'   => 'You want to update for this framework ?',
+			'atts' => array(
+				'class' => 'thangle',
+			),
+			'value' => 'Reset',
+		),
+	 array(
+			'id'      => 'switcher_1',
+			'type'    => 'reset',
+			'title'   => 'Switcher',
+			'label'   => 'You want to update for this framework ?',
+			'atts' => array(
+				'class' => 'thangle',
+			),
+			'value' => 'Button',
+		),
+
+ );
+foreach ( $args as $key => $agr ) {
+	$value = (isset( $agr['value'] ) && ! empty( $agr['value'] )) ? $agr['value']:'value';
+	$field = new TL_Field( $agr, $value, $agr['id'] );
+	$field_text = new TL_Generate_Field( $field );
+	echo $field_text->set_output();
+	echo '<br />';
+}
 
