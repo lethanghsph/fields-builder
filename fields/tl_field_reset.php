@@ -36,8 +36,13 @@ class TL_Field_Reset extends TL_Field_Set_Output_Abstract {
 		$ex_atts = array(
 			'class' => 'btn btn-danger',
 		);
-		return $this->field->generate_input( array(
+
+		$output = '';
+		$output .= $field->generate_before();
+		$output .= $this->field->generate_input( array(
 			'atts' => $field->generate_attributes( $ex_atts ),
 		) );
+		$output .= $field->generate_after();
+		return $output;
 	}
 }
