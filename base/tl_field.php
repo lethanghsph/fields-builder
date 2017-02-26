@@ -72,7 +72,7 @@ class TL_Field {
 		$this->config = $config;
 		$this->value = $value;
 		$this->unique = $unique;
-		$this->attributes = ( isset( $config['attributes'] ) && ! empty( $config['attributes'] ) ) ? $config['attributes'] : array();
+		$this->attributes = ( isset( $config['atts'] ) && ! empty( $config['atts'] ) ) ? $config['atts'] : array();
 		$this->options = ( isset( $config['options'] ) ) ? $config['options'] : '';
 	}
 
@@ -172,7 +172,7 @@ class TL_Field {
 			'name'       => $this->set_name(),
 			'value'      => $this->set_value(),
 			'type'       => $this->set_type(),
-			'attributes' => $this->generate_attributes(),
+			'atts'       => $this->generate_attributes(),
 			'checked'    => '',
 			'before'     => '',
 			'after'      => '',
@@ -186,7 +186,7 @@ class TL_Field {
 			$config['name'],
 			$config['value'],
 			$config['checked'],
-			$config['attributes'],
+			$config['atts'],
 			$config['after']
 		);
 		return $output;

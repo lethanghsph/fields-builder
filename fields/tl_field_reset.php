@@ -1,6 +1,6 @@
 <?php
 /**
- * This class to build element submit field
+ * This class to build element reset field
  *
  * @package tl-framework
  */
@@ -11,7 +11,7 @@
  * @since 1.0.0
  * @version 1.0.0
  */
-class TL_Field_Submit extends TL_Field_Set_Output_Abstract {
+class TL_Field_Reset extends TL_Field_Set_Output_Abstract {
 	/**
 	 * Instance of object to build field.
 	 *
@@ -34,7 +34,7 @@ class TL_Field_Submit extends TL_Field_Set_Output_Abstract {
 	public function set_output() {
 		$field = $this->field;
 		$ex_atts = array(
-			'class' => 'btn btn-primary',
+			'class' => 'btn btn-danger',
 		);
 		return $this->field->generate_input( array(
 			'atts' => $field->generate_attributes( $ex_atts ),
