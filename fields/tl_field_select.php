@@ -1,6 +1,6 @@
 <?php
 /**
- * This class to build element button field
+ * This class to build element select field
  *
  * @package tl-framework
  */
@@ -11,7 +11,7 @@
  * @since 1.0.0
  * @version 1.0.0
  */
-class TL_Field_Button extends TL_Field_Set_Output_Abstract {
+class TL_Field_Select extends TL_Field_Set_Output_Abstract {
 	/**
 	 * Instance of object to build field.
 	 *
@@ -33,16 +33,6 @@ class TL_Field_Button extends TL_Field_Set_Output_Abstract {
 	 */
 	public function set_output() {
 		$field = $this->field;
-		$ex_atts = array(
-			'class' => 'btn btn-info',
-		);
-
-		$output = '';
-		$output .= $field->generate_before();
-		$output .= $this->field->generate_input( array(
-			'atts' => $field->generate_attributes( $ex_atts ),
-		) );
-		$output .= $field->generate_after();
-		return $output;
+		return $field->generate_select();
 	}
 }
