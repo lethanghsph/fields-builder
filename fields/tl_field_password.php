@@ -32,6 +32,11 @@ class TL_Field_Password extends TL_Field_Set_Output_Abstract {
 	 * Set output of field.
 	 */
 	public function set_output() {
-		return $this->field->generate_input();
+		$field = $this->field;
+		$output = '';
+		$output .= $field->generate_before();
+		$output .= $this->field->generate_input();
+		$output .= $field->generate_after();
+		return $output;
 	}
 }
