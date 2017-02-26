@@ -36,17 +36,20 @@ class TL_Field_Checkbox extends TL_Field_Set_Output_Abstract {
 		$options = $field->set_options();
 		if ( empty( $options ) ) { return; };
 
-		$output = '<ul>';
+		$output = '';
+		$output .= $field->generate_before();
+		$output .= '<ul>';
 		foreach ( $options as $key => $value ) {
 			$output .= '<li>';
 			$output .= $field->generate_input( array(
-				'after' => $value,
 				'value' => $key,
 				'checked' => $field->set_checked( $key, $field->set_value() ),
 			) );
+			$output .= '<span>' . $value . '</span>';
 			$output .= '</li>';
 		}
 		$output .= '</ul>';
+		$output .= $field->generate_after();
 
 		return $output;
 	}
