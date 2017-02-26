@@ -38,6 +38,10 @@ class TL_Field_Textarea extends TL_Field_Set_Output_Abstract {
 			'rows' => '10',
 			'cols' => '50',
 		);
-		return '<textarea name="' . $field->set_name() . '" ' . $field->generate_attributes( $atts_extra ) . '>' . $field->set_value() . '</textarea>';
+		$output = '';
+		$output .= $field->generate_before();
+		$output .= '<textarea name="' . $field->set_name() . '" ' . $field->generate_attributes( $atts_extra ) . '>' . $field->set_value() . '</textarea>';
+		$output .= $field->generate_after();
+		return $output;
 	}
 }
