@@ -46,7 +46,7 @@ $args  = array(
 		),
 
 		array(
-			'id'             => 'select_1',
+			'id'             => 'select_2',
 			'type'           => 'checkbox',
 			'title'          => 'Select',
 			'options'        => array(
@@ -87,13 +87,31 @@ $args  = array(
 			),
 			'value' => 'Button',
 		),
+		array(
+			'id'             => 'select_1',
+			'type'           => 'select',
+			'title'          => 'Select',
+			'options'        => array(
+				'bmw'          => 'BMW',
+				'mercedes'     => 'Mercedes',
+				'volkswagen'   => 'Volkswagen',
+				'other'        => 'Other',
+			),
+			'default_option' => 'Select your favorite car',
+			'atts' => array(
+				'multiple' => 'only-key',
+			),
+			'value' => array(
+				'bmw',
+				'other',
+			),
+		),
 
  );
 foreach ( $args as $key => $agr ) {
-	$value = (isset( $agr['value'] ) && ! empty( $agr['value'] )) ? $agr['value']:'value';
+	$value = (isset( $agr['value'] ) && ! empty( $agr['value'] )) ? $agr['value']:'mercedes';
 	$field = new TL_Field( $agr, $value, $agr['id'] );
 	$field_text = new TL_Generate_Field( $field );
 	echo $field_text->set_output();
 	echo '<br />';
 }
-
